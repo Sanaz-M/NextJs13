@@ -1,6 +1,7 @@
 "use client"
 
 import { FC, useState } from 'react';
+import { signOut } from 'next-auth/react';
 
 import Button from '@/ui/Button';
 
@@ -17,16 +18,16 @@ const SignOutButton: FC<SignOutButtonProps> = ({ }) => {
     try {
       await signOut();
     } catch (error) {
-      toast({
-        title: 'Error signing out',
-        message: "Please try again later!",
-        type: 'error',
-      })
+      // toast({
+      //   title: 'Error signing out',
+      //   message: "Please try again later!",
+      //   type: 'error',
+      // })
     }
   }
 
   return (
-    <Button onClick={signUserOut} isLoading={isLoading}>Sign Out</Button>
+    <Button onClick={signUserOut}>Sign Out</Button>
   );
 }
 
