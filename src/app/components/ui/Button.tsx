@@ -1,6 +1,13 @@
-import { cn } from '@/lib/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes, FC, forwardRef } from 'react';
+
+//Lucide is build with ES Modules so it's completely tree-shakable.
+// Each icon can be imported as a React component, what renders a inline SVG Element. 
+// This way only the icons that are imported into your project are included in the final bundle. 
+// The rest of the icons are tree-shaken away.
+import { Loader2 } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
 
 interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
@@ -8,7 +15,7 @@ interface ButtonProps
   isLoading?: boolean;
 }
 
-const buttonVariants = cva("active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-color focus:ring-slate-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed dark:focus:ring-slate-400 disabled:pointer-events-none dark:focus:ring-offset-slate-900", {
+export const buttonVariants = cva("active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-color focus:ring-slate-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed dark:focus:ring-slate-400 disabled:pointer-events-none dark:focus:ring-offset-slate-900", {
   variants: {
     variant: {
       default:
@@ -44,8 +51,15 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
       ref={ref}
       disabled={isLoading}
       {...props}
-    ></button>
+    >
+      {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+      {children}
+    </button>
   );
 })
+
+/* The displayName provided by React is a recommended feature which helps a lot with unit testing
+ as well as debugging the code. It also helps when we are using React devtools to inspect a component */
+Button.displayName = 'Button';
 
 export default Button;
