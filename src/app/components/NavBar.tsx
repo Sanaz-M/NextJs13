@@ -1,8 +1,9 @@
-import { FC } from 'react';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { Sign } from 'crypto';
-import { buttonVariants } from './ui/Button';
+import { buttonVariants } from '@/ui/Button';
+import SignInButton from '@/components/SignInButton';
+import SignOutButton from '@/components/SignOutButton';
 
 interface NavBarProps {
 
@@ -25,8 +26,10 @@ const NavBar = async () => {
           <Link href='/documentation' className={buttonVariants({ variants: "ghost" })}>Documentation</Link>
 
           {session ? (
-            <Link href='/dashboard' className={buttonVariants({ variants: "ghost" })}>Dashboard</Link>
-            <SignOutButton />
+            <>
+              <Link href='/dashboard' className={buttonVariants({ variants: "ghost" })}>Dashboard</Link>
+              <SignOutButton />
+            </>
           ) : (
             <SignInButton />
           )}
