@@ -1,11 +1,10 @@
-import { FC } from 'react';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { Sign } from 'crypto';
+import { buttonVariants } from '@/ui/Button';
+import SignInButton from '@/components/SignInButton';
+import SignOutButton from '@/components/SignOutButton';
 
-interface NavBarProps {
-
-}
 
 const NavBar = async () => {
   const session = await getServerSession();
@@ -13,19 +12,21 @@ const NavBar = async () => {
     <div className='fixed backdrop-blur-sm bg-white/75 dark:bg-slate-900 z-50 top-0 left-0 right-0 h-20 
     border-b border-slate-300 dark:border-slate-700 shadow-sm flex items-center justify-between'>
       <div className='container max-w-7xl mx-auto w-full flex justify-between items-center'>
-        <Link href='/' className={buttonVariants({ variants: "link" })}>Text similarity 1.0</Link>
+        <Link href='/' className={buttonVariants({ variant: "link" })}>Text similarity 1.0</Link>
 
         <div className="md:hidden">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </div>
 
         <div className='hidden md:flex gap-4'>
-          <ThemeToggle />
-          <Link href='/documentation' className={buttonVariants({ variants: "ghost" })}>Documentation</Link>
+          {/* <ThemeToggle /> */}
+          <Link href='/documentation' className={buttonVariants({ variant: "ghost" })}>Documentation</Link>
 
           {session ? (
-            <Link href='/dashboard' className={buttonVariants({ variants: "ghost" })}>Dashboard</Link>
-            <SignOutButton />
+            <>
+              <Link href='/dashboard' className={buttonVariants({ variant: "ghost" })}>Dashboard</Link>
+              <SignOutButton />
+            </>
           ) : (
             <SignInButton />
           )}
