@@ -5,7 +5,8 @@ import { FC } from 'react';
 import SimpleBar from 'simplebar-react';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ui/Tabs';
-import Code from './ui/Code';
+import Code from '@/ui/Code';
+import { nodejs, python } from '@/helpers/documentation-code';
 
 const DocumentationTabs: FC = () => {
   return (
@@ -16,12 +17,12 @@ const DocumentationTabs: FC = () => {
       </TabsList>
       <TabsContent value='nodejs'>
         <SimpleBar forceVisible='y'>
-          <Code animated code="nodejs" language='javascript' show />
+          <Code animated code={nodejs} language='javascript' show />
         </SimpleBar>
       </TabsContent>
       <TabsContent value='python'>
         <SimpleBar forceVisible='y'>
-          <Code animated code="python" language='python' show />
+          <Code animated code={python} language='python' show />
         </SimpleBar>
       </TabsContent>
     </Tabs>
