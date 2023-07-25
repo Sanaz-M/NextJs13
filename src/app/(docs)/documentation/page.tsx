@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import type { Metadata } from 'next';
+import 'simplebar-react/dist/simplebar.min.css'
 
 import LargeHeading from '@/ui/LargeHeading';
 import Paragraph from '@/ui/Paragraph';
