@@ -1,5 +1,7 @@
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { GetServerSideProps } from 'next';
+import { getServerSession } from 'next-auth';
 
 
 //cn is a simple JavaScript utility for conditionally joining classNames together.
@@ -7,4 +9,14 @@ import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+};
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req);
+  return {
+    props: {
+      session,
+    },
+  };
 }
