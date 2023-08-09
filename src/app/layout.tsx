@@ -1,5 +1,10 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+import '@/styles/globals.css';
+import { Inter } from 'next/font/google';
+
+import { cn } from '@/lib/utils';
+import Providers from '@/components/Providers';
+import NavBar from '@/components/NavBar';
+import { Toaster } from '@/components/ui/Toast';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,8 +19,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    //antialiased - Smooth the font on the level of the pixel, as opposed to the subpixel. 
+    //Switching from subpixel rendering to anti-aliasing for light text on dark backgrounds makes it look lighter. 
+    //subpixel-antialiased - On most non-retina displays, this will give the sharpest text.
+    <html lang="en" className={cn("bg-white text-slate-900 antialiased", inter.className)}>
+      <body className="min-h-screen bg-slate-50 dark:bg-slate-900 antialiased">
+        <Providers>{children}
+          <Toaster position='bottom-right' />
+          <NavBar />
+        </Providers>
+
+        {/*Allow for more height on mobile devices*/}
+        <div className="h-40 md:hidden" />
+      </body>
     </html>
   )
 }
