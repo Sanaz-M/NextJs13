@@ -10,13 +10,3 @@ import { getServerSession } from 'next-auth';
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 };
-
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req);
-  return {
-    props: {
-      session,
-    },
-  };
-}
