@@ -4,30 +4,30 @@ import GoogleProvider from "next-auth/providers/google";
 import { Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 
-
 import { db } from "@/lib/db";
-import { User } from "lucide-react";
 
 
-function getGoogleCredentials(): { clientId: string; clientSecret: string; } {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-
-  if (!clientId || !clientSecret) {
-    throw new Error('Missing Google client ID or secret');
-  } else {
-    return { clientId, clientSecret };
+function getGoogleCredentials(): { clientId: string; clientSecret: string } {
+  const clientId = process.env.GOOGLE_CLIENT_ID
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET
+  if (!clientId || clientId.length === 0) {
+    throw new Error('Missing GOOGLE_CLIENT_ID')
   }
-};
 
+  if (!clientSecret || clientSecret.length === 0) {
+    throw new Error('Missing GOOGLE_CLIENT_SECRET')
+  }
 
+  return { clientId, clientSecret }
+}
 
 export const authOptions: NextAuthOptions = {
   /*Prisma is an open-source ORM that drastically simplifies data modeling, migrations, and data access
-  for SQL databases in Node.js and TypeScript. */
+for SQL databases in Node.js and TypeScript. */
+  secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(db),
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
   },
   pages: {
     signIn: '/login',
@@ -36,17 +36,18 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: getGoogleCredentials().clientId,
       clientSecret: getGoogleCredentials().clientSecret,
-    })
+    }),
   ],
   callbacks: {
-    session: async ({ session, token }: { session: Session, token: JWT }) => {
+    async session({ token, session }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
+        session.user.id = token.id
+        session.user.name = token.name
+        session.user.email = token.email
+        session.user.image = token.picture
       }
-      return session;
+
+      return session
     },
     async jwt({ token, user }) {
       const dbUser = await db.user.findFirst({
@@ -71,4 +72,4 @@ export const authOptions: NextAuthOptions = {
       return '/dashboard'
     },
   },
-}
+};
