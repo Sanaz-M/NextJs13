@@ -12,6 +12,9 @@ import Table from '@/ui/Table';
 
 const ApiDashboard = async ({ }) => {
   const user = await getServerSession(authOptions)
+  //The notFound function allows you to render the not-found file within a route segment 
+  // as well as inject a <meta name="robots" content="noindex" /> tag.
+  //Invoking the notFound() function throws a NEXT_NOT_FOUND error and terminates rendering of the route segment in which it was thrown.
   if (!user) return notFound()
 
   const apiKeys = await db.apiKey.findMany({
@@ -40,6 +43,7 @@ const ApiDashboard = async ({ }) => {
       <LargeHeading>Welcome back, {user.user.name}</LargeHeading>
       <div className='flex flex-col md:flex-row gap-4 justify-center md:justify-start items-center'>
         <Paragraph>Your API key:</Paragraph>
+        {/* Use truncate to truncate overflowing text with an ellipsis ( … ) */}
         <Input className='w-fit truncate' readOnly value={activeApiKey.key} />
         <ApiKeyOptions apiKeyKey={activeApiKey.key} />
       </div>
