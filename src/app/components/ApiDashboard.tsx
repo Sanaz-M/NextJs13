@@ -10,6 +10,13 @@ import LargeHeading from '@/ui/LargeHeading';
 import Paragraph from '@/ui/Paragraph';
 import Table from '@/ui/Table';
 
+interface ApiKey {
+    id: string;
+    key: string;
+    enabled: boolean;
+    userId: string;
+}
+
 const ApiDashboard = async ({ }) => {
   const user = await getServerSession(authOptions)
   //The notFound function allows you to render the not-found file within a route segment 
@@ -21,7 +28,7 @@ const ApiDashboard = async ({ }) => {
     where: { userId: user.user.id },
   })
 
-  const activeApiKey = apiKeys.find((key) => key.enabled)
+  const activeApiKey = apiKeys.find((key: ApiKey) => key.enabled)
 
   if (!activeApiKey) return notFound()
 
