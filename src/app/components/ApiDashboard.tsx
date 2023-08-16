@@ -17,6 +17,11 @@ interface ApiKey {
     userId: string;
 }
 
+interface ApiRequest {
+  //... other properties
+  timestamp: string;
+}
+
 const ApiDashboard = async ({ }) => {
   const user = await getServerSession(authOptions)
   //The notFound function allows you to render the not-found file within a route segment 
@@ -40,7 +45,7 @@ const ApiDashboard = async ({ }) => {
     },
   })
 
-  const serializableRequests = userRequests.map((req: String) => ({
+  const serializableRequests = userRequests.map((req: ApiRequest) => ({
     ...req,
     timestamp: formatDistance(new Date(req.timestamp), new Date()),
   }))
