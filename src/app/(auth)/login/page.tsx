@@ -1,10 +1,11 @@
-import Icons from '@/components/Icons'
-import { buttonVariants } from '@/components/ui/Button'
-import LargeHeading from '@/components/ui/LargeHeading'
-import Paragraph from '@/components/ui/Paragraph'
-import UserAuthForm from '@/components/UserAuthForm'
-import Link from 'next/link'
-import { FC } from 'react'
+import Icons from '@/components/Icons';
+import { buttonVariants } from '@/components/ui/Button';
+import LargeHeading from '@/components/ui/LargeHeading';
+import Paragraph from '@/components/ui/Paragraph';
+import UserAuthForm from '@/components/UserAuthForm';
+
+import Link from 'next/link';
+import { FC } from 'react';
 
 const page: FC = () => {
   return (
