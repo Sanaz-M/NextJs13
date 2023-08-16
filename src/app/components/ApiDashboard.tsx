@@ -11,15 +11,15 @@ import Paragraph from '@/ui/Paragraph';
 import Table from '@/ui/Table';
 
 interface ApiKey {
-    id: string;
-    key: string;
-    enabled: boolean;
-    userId: string;
+  id: string;
+  key: string;
+  enabled: boolean;
+  userId: string;
 }
 
 interface ApiRequest {
   //... other properties
-  timestamp: string;
+  timestamp: Date;
 }
 
 const ApiDashboard = async ({ }) => {
@@ -46,9 +46,10 @@ const ApiDashboard = async ({ }) => {
   })
 
   const serializableRequests = userRequests.map((req: ApiRequest) => ({
-    ...req,
-    timestamp: formatDistance(new Date(req.timestamp), new Date()),
-  }))
+    ...req,  // Spread all properties of req
+    timestamp: formatDistance(new Date(req.timestamp), new Date()),  // Overwrite the timestamp property with the formatted string
+  }));
+
 
   return (
     <div className='container flex flex-col gap-6'>
