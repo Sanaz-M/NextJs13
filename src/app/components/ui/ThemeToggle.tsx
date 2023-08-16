@@ -1,5 +1,7 @@
 "use client"
 import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
+
 import { Icons } from '@/components/Icons';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/ui/DropdownMenu';
@@ -11,7 +13,17 @@ interface ThemeToggleProps {
 }
 
 export default function ThemeToggle(props: ThemeToggleProps) {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [hasThemeLoaded, setHasThemeLoaded] = useState(false);
+
+  // This effect will run once the theme is determined
+  useEffect(() => {
+    if (theme) setHasThemeLoaded(true);
+  }, [theme]);
+
+  // If the theme is not loaded, don't render anything
+  if (!hasThemeLoaded) return null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
