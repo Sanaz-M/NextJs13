@@ -35,7 +35,7 @@ const ApiDashboard = async ({ }) => {
   const userRequests = await db.apiRequest.findMany({
     where: {
       apiKeyId: {
-        in: apiKeys.map((key) => key.id),
+        in: apiKeys.map((key: ApiKey) => key.id),
       },
     },
   })
