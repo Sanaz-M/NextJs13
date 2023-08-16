@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { createApiKey } from '@/helpers/create-api-key';
-// import { revokeApiKey } from '@/helpers/revoke-api-key';
+import { revokeApiKey } from '@/helpers/revoke-api-key';
 import Button from '@/ui/Button';
 import { toast } from '@/ui/Toast';
 
@@ -30,7 +30,7 @@ const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyKey }) => {
   const createNewApiKey = async () => {
     setIsCreatingNew(true)
     try {
-      // await revokeApiKey()
+      await revokeApiKey()
       await createApiKey()
       router.refresh()
     } catch (error) {
@@ -47,7 +47,7 @@ const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyKey }) => {
   const revokeCurrentApiKey = async () => {
     setIsRevoking(true)
     try {
-      // await revokeApiKey()
+      await revokeApiKey()
       router.refresh()
     } catch (error) {
       toast({
